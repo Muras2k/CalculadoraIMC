@@ -1,41 +1,41 @@
-import {View, StyleSheet} from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
+// Componente que exibe a classificação do IMC com base no valor calculado
 export default function Classification({ imc }) {
-  const valor = parseFloat(imc);
-
-  const interpretarIMC = (imc) => {
+  
+  // Função que retorna a classificação com base no valor do IMC
+  const getClassification = () => {
+    if (!imc) return '';
     if (imc < 18.5) return 'Abaixo do peso';
-    if (imc < 24.9) return 'Peso normal';
-    if (imc < 29.9) return 'Sobrepeso';
-    return 'Obesidade';
+    if (imc < 25) return 'Peso normal';
+    if (imc < 30) return 'Sobrepeso';
+    if (imc < 35) return 'Obesidade grau 1';
+    if (imc < 40) return 'Obesidade grau 2';
+    return 'Obesidade grau 3 (obesidade mórbida)';
   };
 
-
+  // Renderiza o componente com a classificação do IMC
   return (
-    <View>
-        <View style={styles.container}>
-        <Text style={styles.texto}>IMC: {imc}</Text>
-        <Text style={styles.resultado}>{interpretarIMC()}</Text>
-        </View>
+    <View style={styles.container}>
+      <Text style={styles.label}>Classificação do IMC:</Text>
+      <Text style={styles.value}>{getClassification()}</Text>
     </View>
-
   );
 }
 
+// Estilização do componente
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 10,
     alignItems: 'center',
   },
-  texto: {
-    fontSize: 18,
-  },
-  resultado: {
-    fontSize: 20,
+  label: {
+    fontSize: 16,
     fontWeight: 'bold',
-    color: 'blue',
+  },
+  value: {
+    fontSize: 18,
+    color: '#0077cc',
   },
 });
-
-
-
